@@ -62,3 +62,11 @@ class Todo:
         if self.current_collection is not None:
             item = self.db.get_item(self.current_collection, name)
             self.db.delete_item(item)
+            
+    def delete_a_collection(self, name):
+        """
+        Delete an entire collection of items.
+        """
+        self.current_collection = None
+        collection = Collection(name)
+        self.db.delete_collection(collection)

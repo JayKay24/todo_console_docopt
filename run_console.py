@@ -3,6 +3,7 @@ This example uses docopt with the built in cmd module to demonstrate an
 interactive command application.
 Usage:
     run_console create <collection_name>...
+    run_console delete <collection_name>...
     run_console (-i | --interactive)
     run_console (-h | --help)
 Options:
