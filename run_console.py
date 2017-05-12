@@ -4,10 +4,11 @@ interactive command application.
 Usage:
     todo create <collection_name>...
     todo show_collection
+    todo open <collection_name>...
     todo item_add <item_name>...
     todo show_items
     todo delete_collection <collection_name>...
-    todo open <collection_name>...
+    todo delete_item <item_name>...
     todo (-i | --interactive)
     todo (-h | --help)
 Options:
@@ -88,6 +89,14 @@ class MyInteractive (cmd.Cmd):
         """Usage: show_items"""
         
         todo.show_items()
+        
+    @docopt_cmd
+    def do_delete_item(self, args):
+        """Usage: delete_item <item_name>..."""
+        
+        name_list = args['<item_name>']
+        full_name = ' '.join(name_list)
+        todo.delete_an_item(full_name)
         
     @docopt_cmd
     def do_delete_collection(self, args):

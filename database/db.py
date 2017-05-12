@@ -79,10 +79,12 @@ class TodoDB:
         """
         Return a list of item objects.
         """
-        query = '''SELECT item_id, item_name, coll_id FROM items 
+        query = '''SELECT item_id, item_name, collection_id, 
+                coll_id, coll_name FROM items 
+                JOIN collections ON collection_id=coll_id
                 WHERE coll_id=?'''
-        with closing(self.conn.cursor) as c:
-            c.execute(query, (collection.coll_id,))
+        with closing(self.conn.cursor()) as c:
+            c.execute(query, (collection.id,))
             results = c.fetchall()
             
         items = []
@@ -94,7 +96,7 @@ class TodoDB:
         """
         Return a single item object.
         """
-        query = '''SELECT item_id, item_name, coll_id FROM items
+        query = '''SELECT item_id, item_name, collection_id FROM items
                 WHERE coll_id=?'''
         with closing(self.conn.cursor()) as c:
             c.execute(query, (collection.id,))
@@ -116,7 +118,7 @@ class TodoDB:
         """
         Add an item into the database.
         """
-        sql = '''INSERT INTO items (item_name, coll_id) VALUES(?, ?)'''
+        sql = '''INSERT INTO items (item_name, collection_id) VALUES(?, ?)'''
         with closing(self.conn.cursor()) as c:
             c.execute(sql, (item.name, item.collection.id))
             self.conn.commit()

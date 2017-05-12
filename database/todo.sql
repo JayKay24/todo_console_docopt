@@ -11,5 +11,5 @@ create table collections(
 create table items(
     item_id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_name TEXT NOT NULL,
-    coll_id INTEGER NOT NULL REFERENCES collections(coll_id)
+    collection_id INTEGER NOT NULL REFERENCES collections(coll_id)
 );
