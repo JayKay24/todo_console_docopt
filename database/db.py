@@ -81,3 +81,23 @@ class TodoDB:
         for row in results:
             items.append(self.make_item(row))
         return items
+        
+    def add_collection(self, name):
+        """
+        Add a collection into the database.
+        """
+        sql = '''INSERT INTO collections(coll_name) VALUES(?)'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(sql, (name,))
+            self.conn.commit()
+            print("Collection", name, "was successfully created!")
+            
+    def delete_item(self, id):
+        """
+        Delete an item from a collection.
+        """
+        sql = '''DELETE FROM items WHERE item_id=?'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(sql, (id,))
+            self.conn.commit()
+        
