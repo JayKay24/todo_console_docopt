@@ -78,13 +78,6 @@ class TodoDB:
         """
         Return a list of item objects.
         """
-        query = '''SELECT coll_id, coll_name from collections 
-                WHERE coll_name=?'''
-        with closing(self.conn.cursor) as c:
-            c.execute(query, (collection.name))
-            row = c.fetchone()
-        collection = self._make_collection(row)
-            
         query = '''SELECT item_id, item_name, coll_id FROM items 
                 WHERE coll_id=?'''
         with closing(self.conn.cursor) as c:
@@ -95,6 +88,18 @@ class TodoDB:
         for row in results:
             items.append(self._make_item(row))
         return items
+        
+    def get_item(self, collection, name):
+        """
+        Return a single item object.
+        """
+        query = '''SELECT item_id, item_name, coll_id FROM items
+                WHERE coll_id=?'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(query, (collection.name,))
+            row = c.fetchone()
+        item = self.make_item(row)
+        return item
         
     def add_collection(self, collection):
         """
@@ -116,12 +121,12 @@ class TodoDB:
             self.conn.commit()
             print("Item", item.name, "was successfully added!")
             
-    def delete_item(self, id):
+    def delete_item(self, item):
         """
         Delete an item from a collection.
         """
         sql = '''DELETE FROM items WHERE item_id=?'''
         with closing(self.conn.cursor()) as c:
-            c.execute(sql, (id,))
+            c.execute(sql, (item.id,))
             self.conn.commit()
         
