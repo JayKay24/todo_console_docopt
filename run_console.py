@@ -58,11 +58,17 @@ class MyInteractive (cmd.Cmd):
         todo.show_collections()
         
     @docopt_cmd
-    def show_collection(self, args):
+    def do_show_collection(self, args):
         """Usage: show_collection"""
         
         # Show all the collections in the database.
         todo.show_collections()
+        
+    @docopt_cmd
+    def do_delete_collection(self, args):
+        """Usage: delete_collection <collection_name>"""
+        
+        todo.delete_a_collection(args['<collection_name>'])
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""
