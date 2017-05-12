@@ -29,6 +29,7 @@ class Todo:
         Set aside a collection to add items.
         """
         self.current_collection = self.db.get_collection(name)
+        print(self.current_collection.name, "has been opened.")
     
     def add_an_item(self, name):
         """

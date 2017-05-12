@@ -2,11 +2,13 @@
 This example uses docopt with the built in cmd module to demonstrate an 
 interactive command application.
 Usage:
-    run_console create <collection_name>...
-    run_console show_collection
-    run_console delete <collection_name>...
-    run_console (-i | --interactive)
-    run_console (-h | --help)
+    todo create <collection_name>...
+    todo show_collection
+    todo item_add <item_name>...
+    todo delete_collection <collection_name>...
+    todo open <collection_name>...
+    todo (-i | --interactive)
+    todo (-h | --help)
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit
@@ -45,7 +47,7 @@ def docopt_cmd(func):
     return fn
     
 class MyInteractive (cmd.Cmd):
-    prompt = '(run_console) '
+    prompt = '(todo) '
     file = None
     
     @docopt_cmd
@@ -65,10 +67,28 @@ class MyInteractive (cmd.Cmd):
         todo.show_collections()
         
     @docopt_cmd
-    def do_delete_collection(self, args):
-        """Usage: delete_collection <collection_name>"""
+    def do_open(self, args):
+        """Usage: open <collection_name>..."""
         
-        todo.delete_a_collection(args['<collection_name>'])
+        name_list = args['<collection_name>']
+        full_name = ' '.join(name_list)
+        todo.open_collection(full_name)
+        
+    @docopt_cmd
+    def do_item_add(self, args):
+        """Usage: item_add <item_name>..."""
+        
+        name_list = args['<item_name>']
+        full_name = ' '.join(name_list)
+        todo.add_an_item(full_name)
+        
+    @docopt_cmd
+    def do_delete_collection(self, args):
+        """Usage: delete_collection <collection_name>..."""
+        
+        name_list = args['<collection_name>']
+        full_name = ' '.join(name_list)
+        todo.delete_a_collection(full_name)
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""

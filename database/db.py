@@ -136,9 +136,9 @@ class TodoDB:
         """
         Delete a collection from the database.
         """
-        sql = '''DELETE FROM collection WHERE coll_name=?'''
+        sql = '''DELETE FROM collections WHERE coll_name=?'''
         with closing(self.conn.cursor()) as c:
-            c.execute(sql, (collection.name))
+            c.execute(sql, (collection.name,))
             self.conn.commit()
             print(collection.name, "was successfully deleted.")
         
