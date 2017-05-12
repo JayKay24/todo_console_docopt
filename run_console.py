@@ -5,6 +5,7 @@ Usage:
     todo create <collection_name>...
     todo show_collection
     todo item_add <item_name>...
+    todo show_items
     todo delete_collection <collection_name>...
     todo open <collection_name>...
     todo (-i | --interactive)
@@ -81,6 +82,12 @@ class MyInteractive (cmd.Cmd):
         name_list = args['<item_name>']
         full_name = ' '.join(name_list)
         todo.add_an_item(full_name)
+        
+    @docopt_cmd
+    def do_show_items(self, args):
+        """Usage: show_items"""
+        
+        todo.show_items()
         
     @docopt_cmd
     def do_delete_collection(self, args):

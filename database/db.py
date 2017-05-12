@@ -72,7 +72,7 @@ class TodoDB:
         with closing(self.conn.cursor()) as c:
             c.execute(query, (name,))
             row = c.fetchone()
-        collection = self.make_collection(row)
+        collection = self._make_collection(row)
         return collection
         
     def get_items(self, collection):
