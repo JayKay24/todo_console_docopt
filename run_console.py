@@ -3,6 +3,7 @@ This example uses docopt with the built in cmd module to demonstrate an
 interactive command application.
 Usage:
     run_console create <collection_name>...
+    run_console show_collection
     run_console delete <collection_name>...
     run_console (-i | --interactive)
     run_console (-h | --help)
@@ -54,6 +55,13 @@ class MyInteractive (cmd.Cmd):
         name_list = args['<collection_name>']
         full_name = ' '.join(name_list)
         todo.add_a_collection(full_name)
+        todo.show_collections()
+        
+    @docopt_cmd
+    def show_collection(self, args):
+        """Usage: show_collection"""
+        
+        # Show all the collections in the database.
         todo.show_collections()
         
     def do_quit(self, args):
