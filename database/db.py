@@ -96,12 +96,13 @@ class TodoDB:
         """
         Return a single item object.
         """
-        query = '''SELECT item_id, item_name, collection_id FROM items
-                WHERE coll_id=?'''
+        query = '''SELECT item_id, item_name, collection_id, coll_id, coll_name
+                FROM items JOIN collections ON collection_id=coll_id
+                WHERE item_name=?'''
         with closing(self.conn.cursor()) as c:
-            c.execute(query, (collection.id,))
+            c.execute(query, (name,))
             row = c.fetchone()
-        item = self.make_item(row)
+        item = self._make_item(row)
         return item
         
     def add_collection(self, collection):
