@@ -4,8 +4,9 @@ Created on Fri May 12 12:36:21 2017
 
 @author: James Kinyua
 """
-from . import Collection, Item
-from .. import TodoDB
+from classes.collection import Collection
+from classes.item import Item
+from database.db import TodoDB
 
 class Todo:
     """
@@ -16,7 +17,7 @@ class Todo:
         self.current_collection = None
         self.current_item = None
         
-    def create_collection(self, name):
+    def add_a_collection(self, name):
         """
         Create a new collection of items.
         """

@@ -8,7 +8,8 @@ import sqlite3
 
 from contextlib import closing
 
-from .. import Collection, Item
+from classes.collection import Collection
+from classes.item import Item
 
 db_name = 'todo.sqlite'
 
@@ -38,20 +39,20 @@ class TodoDB:
         """
         Create a collection object using a row from a result set.
         """
-        return Collection(row['coll_id'], row['coll_name'])
+        return Collection(row['coll_name'], row['coll_id'])
         
     def _make_item(self, row):
         """
         Create an item object using a row from a result set.
         """
-        return Item(row['item_id'], row['item_name'], self._make_collection(row))
+        return Item(row['item_name'], row['item_id'], self._make_collection(row))
         
     def get_collections(self):
         """
         Return a list of collection objects.
         """
         query = '''SELECT coll_id, coll_name FROM collections'''
-        with closing(self.conn.cursor) as c:
+        with closing(self.conn.cursor()) as c:
             c.execute(query)
             results = c.fetchall()
             

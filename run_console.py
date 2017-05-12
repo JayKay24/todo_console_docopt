@@ -1,17 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 12 11:15:45 2017
-
-@author: James Kinyua
-"""
-# -*- coding: utf-8 -*-
 """
 This example uses docopt with the built in cmd module to demonstrate an 
 interactive command application.
 Usage:
-    
-    run_allocator (-i | --interactive)
-    run_allocator (-h | --help)
+    run_console create <collection_name>...
+    run_console (-i | --interactive)
+    run_console (-h | --help)
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit
@@ -19,6 +12,11 @@ Options:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
+
+from classes.todo import Todo
+
+todo = Todo()
+todo.db.connect_db()
 
 def docopt_cmd(func):
     """
@@ -50,13 +48,18 @@ class MyInteractive (cmd.Cmd):
     
     @docopt_cmd
     def do_create(self, args):
-        """Usage: create <item_title>..."""
+        """Usage: create <collection_name>..."""
         
+        name_list = args['<collection_name>']
+        full_name = ' '.join(name_list)
+        todo.add_a_collection(full_name)
+        todo.show_collections()
         
     def do_quit(self, args):
         """Quits out of Interactive Mode."""
         
         print("Good Bye!")
+        todo.db.close_db()
         exit()      
 opt = docopt(__doc__, sys.argv[1:])
 if opt['--interactive']:
