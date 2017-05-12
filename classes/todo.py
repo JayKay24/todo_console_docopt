@@ -13,6 +13,7 @@ class Todo:
     """
     def __init__(self):
         self.db = TodoDB()
+        self.current_collection = None
         
     def create_collection(self, name):
         """
@@ -20,4 +21,11 @@ class Todo:
         """
         collection = Collection(name)
         self.db.add_collection(collection)
+        
+    def open_collection(self, name):
+        """
+        Set aside a collection to add items.
+        """
+        self.current_collection = self.db.get_collection(name)
+    
         
