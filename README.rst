@@ -1,20 +1,14 @@
 ==============
-room_allocator
+todo_console_docopt
 ==============
 
 
-This application is used to randomly allocate offices and living spaces to Andela Fellows and Staff.
+This application is used to store a collection of todo items.
 
 
 Description
 ===========
 
-A new Andela Fellow is assigned an office space and an optional living space. An Andela Staff member is
-assigned only an office space.
+A new collection item is created. New todo items are added to the collection
+item.
 
-
-Note
-====
-
-This project has been set up using PyScaffold 2.5.7. For details and usage
-information on PyScaffold see http://pyscaffold.readthedocs.org/.
