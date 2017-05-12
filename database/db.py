@@ -131,4 +131,14 @@ class TodoDB:
             c.execute(sql, (item.id,))
             self.conn.commit()
             print(item.name, "was successfully deleted.")
+            
+    def delete_collection(self, collection):
+        """
+        Delete a collection from the database.
+        """
+        sql = '''DELETE FROM collection WHERE coll_name=?'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(sql, (collection.name))
+            self.conn.commit()
+            print(collection.name, "was successfully deleted.")
         
