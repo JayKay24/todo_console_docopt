@@ -8,6 +8,7 @@ class Collection:
     """
     Class used to make a collection object.
     """
-    def __init__(self, name):
+    def __init__(self, name, id=None):
+        self.id = id
         self.name = name
         self.items = []
