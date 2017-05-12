@@ -54,4 +54,10 @@ class Todo:
         for collection in collections:
             print(collection.name)
             
-        
+    def delete_an_item(self, name):
+        """
+        Delete an item from a collection.
+        """
+        if self.current_collection is not None:
+            item = self.db.get_item(self.current_collection, name)
+            self.db.delete_item(item)

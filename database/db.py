@@ -96,7 +96,7 @@ class TodoDB:
         query = '''SELECT item_id, item_name, coll_id FROM items
                 WHERE coll_id=?'''
         with closing(self.conn.cursor()) as c:
-            c.execute(query, (collection.name,))
+            c.execute(query, (collection.id,))
             row = c.fetchone()
         item = self.make_item(row)
         return item
@@ -129,4 +129,5 @@ class TodoDB:
         with closing(self.conn.cursor()) as c:
             c.execute(sql, (item.id,))
             self.conn.commit()
+            print(item.name, "was successfully deleted.")
         
