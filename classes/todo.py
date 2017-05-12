@@ -38,5 +38,13 @@ class Todo:
             self.db.add_item(item)
         
     def show_items(self):
-        
+        """
+        Display all the items in a collection.
+        """
+        if self.current_collection is not None:
+            items = self.db.get_items(self.current_collection)
+            for item in items:
+                print(item.name)
+                
+
         

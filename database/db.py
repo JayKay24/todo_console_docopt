@@ -74,14 +74,14 @@ class TodoDB:
         collection = self.make_collection(row)
         return collection
         
-    def get_items(self, collection_name):
+    def get_items(self, collection):
         """
         Return a list of item objects.
         """
         query = '''SELECT coll_id, coll_name from collections 
                 WHERE coll_name=?'''
         with closing(self.conn.cursor) as c:
-            c.execute(query, (collection_name))
+            c.execute(query, (collection.name))
             row = c.fetchone()
         collection = self._make_collection(row)
             
