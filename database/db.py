@@ -55,12 +55,12 @@ class TodoDB:
             c.execute(query)
             results = c.fetchall()
             
-        collection = []
+        collections = []
         # loop over each row in the result set.
         for row in results:
             # Append a collection object.
-            collection.append(self._make_collection(row))
-        return collection
+            collections.append(self._make_collection(row))
+        return collections
         
     def get_collection(self, name):
         """

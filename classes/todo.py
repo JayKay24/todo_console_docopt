@@ -46,5 +46,12 @@ class Todo:
             for item in items:
                 print(item.name)
                 
-
+    def show_collections(self):
+        """
+        Display all the collections in the database.
+        """
+        collections = self.db.get_collections()
+        for collection in collections:
+            print(collection.name)
+            
         
