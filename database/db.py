@@ -34,23 +34,23 @@ class TodoDB:
         if self.conn:
             self.conn.close()
     
-    def make_collection(self, row):
+    def _make_collection(self, row):
         """
         Create a collection object using a row from a result set.
         """
         return Collection(row['coll_id'], row['coll_name'])
         
-    def make_item(self, row):
+    def _make_item(self, row):
         """
         Create an item object using a row from a result set.
         """
-        return Item(row['item_id'], row['item_name'], self.make_collection(row))
+        return Item(row['item_id'], row['item_name'], self._make_collection(row))
         
     def get_collections(self):
         """
         Return a list of collection objects.
         """
-        query = '''SELECT coll_id, coll_name FROM collection'''
+        query = '''SELECT coll_id, coll_name FROM collections'''
         with closing(self.conn.cursor) as c:
             c.execute(query)
             results = c.fetchall()
@@ -59,38 +59,62 @@ class TodoDB:
         # loop over each row in the result set.
         for row in results:
             # Append a collection object.
-            collection.append(self.make_collection(row))
+            collection.append(self._make_collection(row))
+        return collection
+        
+    def get_collection(self, name):
+        """
+        Return a single collection object.
+        """
+        query = '''SELECT coll_id, coll_name FROM collections 
+                WHERE coll_name=?'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(query, (name,))
+            row = c.fetchone()
+        collection = self.make_collection(row)
         return collection
         
     def get_items(self, collection_name):
         """
         Return a list of item objects.
         """
-        query = '''SELECT coll_id, coll_name from collections WHERE coll_name=?'''
+        query = '''SELECT coll_id, coll_name from collections 
+                WHERE coll_name=?'''
         with closing(self.conn.cursor) as c:
             c.execute(query, (collection_name))
             row = c.fetchone()
-        collection = self.make_collection(row)
+        collection = self._make_collection(row)
             
-        query = '''SELECT item_id, item_name, coll_id FROM items WHERE coll_id=?'''
+        query = '''SELECT item_id, item_name, coll_id FROM items 
+                WHERE coll_id=?'''
         with closing(self.conn.cursor) as c:
             c.execute(query, (collection.coll_id,))
             results = c.fetchall()
             
         items = []
         for row in results:
-            items.append(self.make_item(row))
+            items.append(self._make_item(row))
         return items
         
-    def add_collection(self, name):
+    def add_collection(self, collection):
         """
         Add a collection into the database.
         """
-        sql = '''INSERT INTO collections(coll_name) VALUES(?)'''
+        sql = '''INSERT INTO collections (coll_name) VALUES(?)'''
         with closing(self.conn.cursor()) as c:
-            c.execute(sql, (name,))
+            c.execute(sql, (collection.name,))
             self.conn.commit()
-            print("Collection", name, "was successfully created!")
+            print("Collection", collection.name, "was successfully created!")
+            
+    def add_item(self, item):
+        """
+        Add an item into the database.
+        """
+        sql = '''INSERT INTO items (item_name, coll_id) VALUES(?, ?)'''
+        with closing(self.conn.cursor()) as c:
+            c.execute(sql, (item.name, item.collection.id))
+            self.conn.commit()
+            print("Item", item.name, "was successfully added!")
             
     def delete_item(self, id):
         """
