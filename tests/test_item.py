@@ -19,7 +19,7 @@ class ItemTest(unittest.TestCase):
         self.item1 = Item('Aang')
         
     def test_item1_has_name(self):
-        self.assertEqual(self.item1.name, 'Avatar',
+        self.assertEqual(self.item1.name, 'Aang',
                          'Item name attribute should not be none')
                          
     def test_item1_has_collection_object(self):
