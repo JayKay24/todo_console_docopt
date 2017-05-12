@@ -2,6 +2,13 @@
 """
 Created on Fri May 12 12:36:21 2017
 
-@author: Geoffrey.ngae
+@author: James Kinyua
 """
+from . import Collection, Item
+from .. import TodoDB
 
+class Todo:
+    def __init__(self):
+        self.db = TodoDB()
+        
+    def create_collection():
