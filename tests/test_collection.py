@@ -8,9 +8,9 @@ import sys
 import unittest
 
 # Add top_level directory to sys.path
-sys.path.append('../')
+sys.path.append('../classes')
 
-from classes.collection import Collection
+from collection import Collection
 
 class CollectionTest(unittest.TestCase):
     def setUp(self):

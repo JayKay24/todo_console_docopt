@@ -8,10 +8,10 @@ import unittest
 import sys
 
 # Add top_level directory room_allocator to sys.path
-sys.path.append('../')
+sys.path.append('../classes')
 
-from classes.collection import Collection
-from classes.item import Item
+from collection import Collection
+from item import Item
 
 class ItemTest(unittest.TestCase):
     def setUp(self):
