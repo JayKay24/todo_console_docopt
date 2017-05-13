@@ -7,7 +7,7 @@ Created on Fri May 12 19:07:22 2017
 import sys
 import unittest
 
-# Add top_level directory to sys.path
+# Add classes directory to sys.path to load it into the Python Environment.
 sys.path.append('../classes')
 
 from collection import Collection

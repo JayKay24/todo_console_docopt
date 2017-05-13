@@ -4,8 +4,8 @@ Created on Fri May 12 12:36:21 2017
 
 @author: James Kinyua
 """
-from classes.collection import Collection
-from classes.item import Item
+from .collection import Collection
+from .item import Item
 from database.db import TodoDB
 
 class Todo:
