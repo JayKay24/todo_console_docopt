@@ -7,5 +7,4 @@ install:
 script: python -m unittest discover
 branches:
 only:
-- master
 - develop
