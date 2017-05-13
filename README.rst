@@ -1,3 +1,5 @@
+https://travis-ci.org/JayKay24/todo_console_docopt.svg?branch=master
+
 ==============
 todo_console_docopt
 ==============
