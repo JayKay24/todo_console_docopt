@@ -1,4 +1,5 @@
-https://travis-ci.org/JayKay24/todo_console_docopt.svg?branch=master
+.. image:: https://travis-ci.org/JayKay24/todo_console_docopt.svg?branch=master
+    :target: https://travis-ci.org/JayKay24/todo_console_docopt
 
 ==============
 todo_console_docopt
