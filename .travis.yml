@@ -5,7 +5,7 @@ python:
 cache: pip
 install:
 - pip install -r requirements.txt
-script: python tests/test_todo_app.py
+script: python -m unittest discover
 branches:
 only:
 - master
